@@ -1,0 +1,12 @@
+target/
+.idea/
+*.iml
+*.pyc
+__pycache__/
+.vscode/
+*.log
+.env
+.DS_Store
+
+# Application settings directory
+.rescue/

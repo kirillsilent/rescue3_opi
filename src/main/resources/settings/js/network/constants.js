@@ -1,0 +1,9 @@
+export const connect = "Подключено";
+export const disconnect = "Не подключено";
+export const lan_eth0 = 'eth0';
+export const wlan_wlan0 = 'wlan0';
+export const lan = 'LAN';
+export const wifi = 'Wi-Fi';
+export const update_net = 'Обновить';
+export const back_select_net = 'Назад к выбору сети';
+export const net_default = '(Стандартный)';

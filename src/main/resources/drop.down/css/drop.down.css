@@ -1,0 +1,59 @@
+.drop.down {
+    width: 96%;
+}
+
+.header.drop{
+    text-align: center;
+    min-height: 2em;
+    max-height: 2em;
+    height: 5%;
+    margin-top: 1.5%;
+    line-height: 2em;
+    border-radius: var(--radius);
+    color: var(--text);
+    background:  url(../images/ic_arrow_down_black.png) rgba(255,255,255,0.85) no-repeat 5% center;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+}
+
+.err_drop{
+    border: solid red 1px;
+    color: red;
+}
+
+.cont.drop{
+    display: none;
+    max-height: 8em;
+    overflow-y: scroll;
+    position: absolute;
+    width: 45%;
+    background: var(--surface);
+    z-index: 1000;
+    border: 1px solid rgba(16, 24, 40, 0.12);
+    border-radius: var(--radius);
+    margin-top: 0.2em;
+    box-shadow: var(--shadow);
+}
+
+.item.drop {
+    text-align: center;
+    min-height: 2em;
+    max-height: 2em;
+    height: 5%;
+    margin: 0.5em;
+    line-height: 2em;
+    border: transparent;
+    border-radius: var(--radius);
+    background: url(../images/ic_arrow_down_black.png) var(--surface-2) no-repeat 5% center;
+    color: var(--text);
+}
+
+.header.drop.active{
+    background-color: var(--accent-soft);
+    border: 1px solid rgba(215, 45, 46, 0.35);
+    color: var(--text);
+}
+
+.item.drop:active{
+    background-color: var(--accent-soft);
+}

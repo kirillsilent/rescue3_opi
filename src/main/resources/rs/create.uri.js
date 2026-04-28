@@ -1,0 +1,1 @@
+export const createRequestUri = (root_path, path) => root_path + '/' + path;

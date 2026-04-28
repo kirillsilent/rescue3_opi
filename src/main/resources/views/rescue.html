@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <link rel="stylesheet" type="text/css" th:href="@{/rescue/css/rescue.css}">
+    <script type="module" src="/rescue/js/rescue.js?v=20260303-1"></script>
+    <title>Plan</title>
+</head>
+<body>
+    <div id="container_plan">
+        <img class="plan" id="plan"/>
+    </div>
+    <div id="incident">
+        <div id="msg"></div>
+    </div>
+    <div id="container_incoming">
+        <img id="operator">
+        <div id="incoming">Входящий звонок</div>
+    </div>
+    <div id="container_marquee">
+        <div class="marquee li" id="left"></div>
+    </div>
+    <div id="container_settings">
+        <button class="settings" id="settings"></button>
+        <button class="status localhost_offline" id="localhost"></button>
+        <button class="status sip_reg_offline" id="sip_register"></button>
+        <button class="status net_offline" id="network"></button>
+    </div>
+
+</body>
+</html>

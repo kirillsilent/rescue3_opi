@@ -1,0 +1,255 @@
+@import "/utils/css/theme.css";
+@import "animation.css";
+
+html{
+    cursor: none;
+}
+body{
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    background: var(--surface);
+    cursor: none;
+}
+
+.plan{
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    max-height: 1080px;
+}
+
+#container_incoming{
+    visibility: hidden;
+    position: absolute;
+    left: 5%;
+    top: 5%;
+}
+
+#operator{
+    width: 290px;
+    height: 322px;
+    background: url(../images/operator.jpeg) var(--surface) no-repeat center;
+    border-radius: 18px;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(16, 24, 40, 0.10);
+}
+
+#incoming{
+    margin-top: 10px;
+    padding: 12px 14px;
+    border-radius: 14px;
+    background: var(--accent);
+    color: var(--accent-contrast);
+    text-align: center;
+    font-weight: 650;
+    letter-spacing: 0.2px;
+    box-shadow: var(--shadow-sm);
+}
+
+#incident{
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+#msg{
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    text-align: center;
+    color: var(--text);
+    font-size: 180px;
+}
+
+#incident.alert{
+    animation: alert 4s infinite;
+}
+
+#incident.incoming{
+     animation: incoming 4s infinite;
+}
+
+#container_plan{
+    width:auto;
+    text-align:center;
+}
+
+#container_marquee{
+    min-width: 100%;
+    position: fixed;
+    height: auto;
+    bottom: 2%;
+}
+
+#container_settings{
+    position: absolute;
+    left: 92%;
+    width: 6%;
+    height: 100%;
+    top: 2%;
+    background: transparent;
+    cursor: pointer;
+}
+
+#container_settings:hover > button{
+  /*visibility: visible;*/
+  /*opacity: 1;*/
+}
+
+button{
+    height: 92px;
+    width: 92px;
+    border-radius: 999px;
+    border: 1px solid rgba(16, 24, 40, 0.12);
+    outline: none;
+    background-color: rgba(255,255,255,0.92);
+    box-shadow: 0 12px 30px rgba(16, 24, 40, 0.14);
+    backdrop-filter: blur(8px);
+    /*visibility: hidden;*/
+    /*opacity: 0;*/
+    /*transition: visibility 0s, opacity 0.5s linear;*/
+}
+
+.settings_auth_modal{
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+}
+
+.settings_auth_backdrop{
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+}
+
+.settings_auth_dialog{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(560px, 92vw);
+    background: var(--surface);
+    border-radius: 14px;
+    padding: 22px 22px 18px;
+    box-shadow: 0 20px 70px rgba(0,0,0,0.35);
+    border: 1px solid rgba(16, 24, 40, 0.10);
+}
+
+.settings_auth_title{
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.settings_auth_subtitle{
+    font-size: 16px;
+    opacity: 0.8;
+    margin-bottom: 14px;
+}
+
+.settings_auth_error{
+    background: var(--danger);
+    color: #fff;
+    padding: 10px 12px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    font-size: 16px;
+}
+
+.settings_auth_input{
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 22px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    outline: none;
+}
+.settings_auth_input:focus{
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px var(--accent-ring);
+}
+
+.settings_auth_actions{
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.settings_auth_btn{
+    border-radius: 12px;
+    height: 56px;
+    width: 140px;
+    border: 0;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.settings_auth_btn.cancel{
+    background: var(--surface-2);
+    color: var(--text);
+}
+
+.settings_auth_btn.ok{
+    background: var(--accent);
+    color: var(--accent-contrast);
+}
+
+.settings{
+    background: url(../images/ic_settings.png) transparent no-repeat center;
+    margin-top: 16%;
+}
+
+.settings:active{
+    background-color: rgba(215,45,46,0.10);
+}
+
+.status{
+    margin-top: 15%;
+}
+
+.status.localhost_online{
+    background: url(../images/ic_server.png) var(--success) no-repeat center;
+}
+
+.status.localhost_offline{
+    background: url(../images/ic_server_off.png) var(--danger) no-repeat center;
+}
+
+.status.sip_reg_online{
+    background: url(../images/ic_account_online.png) var(--success) no-repeat center;
+}
+
+.status.sip_reg_offline{
+    background: url(../images/ic_account_off.png) var(--danger) no-repeat center;
+}
+
+.status.net_online{
+    background: url(../images/ic_lan_connect.png) var(--success) no-repeat center;
+}
+
+.status.net_offline{
+    background: url(../images/ic_lan_disconnect.png) var(--danger) no-repeat center;
+}
+
+.marquee {
+    min-width: 100%;
+    color: #ffffff;
+    background: rgba(16, 24, 40, 0.88);
+    border-top: 3px solid var(--accent);
+    white-space: nowrap;
+    overflow: hidden;
+    animation: marquee 70s linear infinite;
+    font-size: 38px;
+}
+
+.li {
+    float: left;
+    padding: 0.2%;
+}

@@ -1,0 +1,19 @@
+@keyframes anim_text_right {
+    0%   {bottom: 15%; right: -200px}
+    100%  {bottom: 15%; right: 0}
+}
+
+@keyframes anim_small_textl_from_right {
+    0%   {top: 37%; right: -200px}
+    100%  {top: 37%; right: 0}
+}
+
+@keyframes anim_container_from_right {
+    0%   {top: 18%; right: -1000px}
+    100%  {top: 18%; right: 0}
+}
+
+@keyframes anim_settings_from_right {
+    0%   {right: -1000px}
+    100%  {right: 3%}
+}

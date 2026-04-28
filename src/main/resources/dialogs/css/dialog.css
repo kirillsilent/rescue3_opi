@@ -1,0 +1,109 @@
+.dialog {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: hidden; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.dialog_content {
+    background-color: var(--surface);
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid rgba(16, 24, 40, 0.12);
+    width: 60%;
+    box-shadow: var(--shadow);
+    cursor: pointer;
+}
+
+.dialog_content.list{
+    margin-top: 9%;
+}
+
+.dialog_content.waiting{
+    width: 40%;
+    height: 20%;
+}
+
+.dialog_text{
+    color: var(--text);
+    font-size: 110%;
+    text-align: center;
+}
+
+.dialog_text.err{
+    color: var(--danger);
+    display: none;
+}
+
+.dialog_text.text_default{
+    margin-top: 5%;
+    margin-left: 2%;
+}
+
+.dialog_text.text_waiting{
+    margin-top: 11%;
+}
+
+.dialog_operation{
+    width: 100%;
+    margin-top: 5%;
+}
+
+.dialog_button{
+    display: inline-block;
+    height: 50px;
+    border-radius: var(--radius);
+    background-color: var(--surface-2);
+    color: var(--text);
+    font-size: 110%;
+    text-align: center;
+    line-height: 50px;
+    border: 1px solid var(--border);
+}
+
+.dialog_button:active {
+    opacity: 0.5;
+}
+
+.dialog_button.cancel{
+    width: 49.5%;
+}
+
+.dialog_button.ok{
+    width: 49.5%;
+    background: var(--accent);
+    color: var(--accent-contrast);
+    border-color: rgba(215, 45, 46, 0.35);
+}
+
+/* Wi‑Fi password dialog: "Ок" as blue */
+.dialog.wifi_psk .dialog_button.ok{
+    background: var(--blue);
+    color: var(--blue-contrast);
+    border-color: rgba(37, 99, 235, 0.35);
+}
+
+.button_notification{
+    height: 50px;
+    border-radius: var(--radius);
+    background-color: var(--accent);
+    border: solid rgba(255,255,255,0.9) 1px;
+    font-size: 110%;
+    text-align: center;
+    line-height: 50px;
+    color: var(--accent-contrast);
+}
+
+.button_notification:active{
+    background-color: var(--accent);
+    color: var(--accent-contrast);
+    border: solid rgba(255,255,255,0.9) 1px;
+}
+

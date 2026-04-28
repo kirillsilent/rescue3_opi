@@ -1,0 +1,106 @@
+card:
+  host: "http://localhost"
+  organization: idc
+  repository: card
+  apiversion: v1
+api:
+  organization: idc
+  repository: api
+  apiversion: v1
+# Password protection for settings UI and related API endpoints.
+# Change via env var SETTINGS_PASSWORD.
+settings-auth:
+  password: ${SETTINGS_PASSWORD:1234}
+  salt: ${SETTINGS_AUTH_SALT:rescue}
+  cookie-name: settings_auth
+  max-age-hours: 24
+gpio:
+  enabled: true
+  # LED на GPIO4 (BCM 4) и Ground: на ядре с gpiochip512 глобальный номер = 516 (512+4)
+  led-pin: 516
+  rf433:
+    - 5592368
+    - 5592332
+    - 5592512
+    - 5592323
+  organization: idc
+  repository: gpio
+  apiversion: v1
+uploads:
+  dir: ${user.dir}/.rescue/storage/plan
+  basename: plan
+
+micronaut:
+  http:
+    client:
+      read-timeout: 45s
+  router:
+    static-resources:
+      index:
+        enabled: true
+        mapping: "/index/**"
+        paths: [ "classpath:index/" ]
+      rescue:
+        enabled: true
+        mapping: "/rescue/**"
+        paths: [ "classpath:rescue/" ]
+      settings:
+        enabled: true
+        mapping: "/settings/**"
+        paths: [ "classpath:settings/"]
+
+      drop:
+        enabled: true
+        mapping: "/drop.down/**"
+        paths: [ "classpath:drop.down/" ]
+
+      rs:
+        enabled: true
+        mapping: "/rs/**"
+        paths: [ "classpath:rs/" ]
+
+      dialogs:
+        enabled: true
+        mapping: "/dialogs/**"
+        paths: [ "classpath:dialogs/" ]
+
+      utils:
+        enabled: true
+        mapping: "/utils/**"
+        paths: [ "classpath:utils/" ]
+
+      views_paths:
+        enabled: true
+        mapping: "/views.paths/**"
+        paths: [ "classpath:views.paths/" ]
+
+      jquery:
+        enabled: true
+        mapping: "/jquery/**"
+        paths: [ "classpath:jquery/" ]
+      uploads:
+        enabled: true
+        mapping: "/uploads/**"
+        paths:
+          - "file:${user.dir}/.rescue/storage/plan"
+
+
+
+  server:
+    multipart:
+      enabled: true
+      max-file-size: 200MB          # лимит одного файла
+    max-request-size: 210MB          # общий лимит запроса
+    idle-timeout: -1m
+    cors:
+      enabled: true
+      configurations:
+        web:
+          allowedMethods:
+            - GET
+            - POST
+            - PUT
+    idle-timeout: -1m
+    port: 8080
+  application:
+    name: rescue

@@ -1,0 +1,21 @@
+.interfaces{
+    margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.interfaces li{
+    width: 100%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    color: var(--text);
+    font-size: 120%;
+    text-align: center;
+    background: no-repeat 4%;
+    border-bottom: 1px solid var(--border);
+}
+
+.interfaces li:active{
+    background-color: var(--accent-soft);
+    opacity: 1;
+}

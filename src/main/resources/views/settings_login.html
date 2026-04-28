@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/utils/css/theme.css}"/>
+    <title>Вход в настройки</title>
+    <style>
+        .settings_login_page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .settings_login_card {
+            width: min(420px, 100%);
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 32px 28px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+        .settings_login_title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .settings_login_subtitle {
+            font-size: 15px;
+            color: var(--muted);
+            margin-bottom: 20px;
+        }
+        .settings_login_error {
+            background: var(--danger);
+            color: #fff;
+            padding: 10px 12px;
+            border-radius: var(--radius-sm);
+            margin-bottom: 12px;
+            font-size: 15px;
+            display: none;
+        }
+        .settings_login_error.show { display: block; }
+        .settings_login_input_wrap {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .settings_login_input {
+            width: 100%;
+            padding: 14px 48px 14px 16px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        .settings_login_toggle_pwd {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 28px;
+            height: 28px;
+            padding: 0;
+            border: 0;
+            background: transparent;
+            cursor: pointer;
+            color: var(--muted);
+            font-size: 18px;
+            line-height: 1;
+            border-radius: 6px;
+        }
+        .settings_login_toggle_pwd:hover {
+            color: var(--text);
+            background: var(--surface-2);
+        }
+        .settings_login_actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+        .settings_login_btn {
+            border-radius: var(--radius-sm);
+            padding: 14px 24px;
+            border: 0;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        .settings_login_btn.cancel {
+            background: var(--surface-2);
+            color: var(--text);
+        }
+        .settings_login_btn.ok {
+            background: var(--accent);
+            color: var(--accent-contrast);
+        }
+        .settings_login_btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+<div class="settings_login_page">
+    <div class="settings_login_card">
+        <h1 class="settings_login_title">Вход в настройки</h1>
+        <p class="settings_login_subtitle">Введите пароль для доступа к настройкам</p>
+        <div class="settings_login_error" id="settings_login_error"></div>
+        <form id="settings_login_form" action="#" method="post">
+            <div class="settings_login_input_wrap">
+                <input type="password" id="settings_login_password" class="settings_login_input"
+                       placeholder="Пароль" autocomplete="current-password" autofocus />
+                <button type="button" class="settings_login_toggle_pwd" id="settings_login_toggle_pwd" title="Показать пароль" aria-label="Показать пароль">👁</button>
+            </div>
+            <div class="settings_login_actions">
+                <a href="/" class="settings_login_btn cancel" id="settings_login_cancel">Отмена</a>
+                <button type="submit" class="settings_login_btn ok" id="settings_login_submit">Войти</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+(function () {
+  const form = document.getElementById('settings_login_form');
+  const input = document.getElementById('settings_login_password');
+  const errEl = document.getElementById('settings_login_error');
+  const submitBtn = document.getElementById('settings_login_submit');
+  const togglePwd = document.getElementById('settings_login_toggle_pwd');
+
+  function showErr(text) {
+    errEl.textContent = text || '';
+    errEl.classList.toggle('show', !!text);
+  }
+
+  // Глазик: показать/скрыть пароль
+  togglePwd.addEventListener('click', function () {
+    const isPass = input.type === 'password';
+    input.type = isPass ? 'text' : 'password';
+    togglePwd.textContent = isPass ? '🙈' : '👁';
+    togglePwd.title = isPass ? 'Скрыть пароль' : 'Показать пароль';
+  });
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    showErr('');
+    const pwd = (input.value || '').trim();
+    if (!pwd) {
+      showErr('Введите пароль');
+      input.focus();
+      return;
+    }
+
+    submitBtn.disabled = true;
+    try {
+      const r = await fetch('/settings_auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'same-origin',
+        body: JSON.stringify({ password: pwd }),
+      });
+
+      if (!r.ok) {
+        let msg = 'Неверный пароль';
+        try {
+          const data = await r.json();
+          if (data && data.message) msg = data.message;
+        } catch (_) {}
+        showErr(msg);
+        input.focus();
+        input.select();
+        return;
+      }
+
+      // On some kiosk browsers extra async checks can break navigation flow.
+      // Do direct hard navigation right after successful login.
+      window.location.assign('/settings?from_login=' + Date.now());
+      return;
+    } finally {
+      submitBtn.disabled = false;
+    }
+  });
+})();
+</script>
+</body>
+</html>

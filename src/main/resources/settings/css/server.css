@@ -1,0 +1,32 @@
+input[type=text]:focus{
+    background-color: rgba(215, 45, 46, 0.06);
+    outline: none;
+    cursor: none;
+}
+
+.button_server{
+    display: inline-block;
+    width: 42%;
+    height: 50px;
+    border-radius: var(--radius);
+    color: var(--text);
+    font-size: 120%;
+    text-align: center;
+    line-height: 54px;
+    background: var(--surface-2);
+    margin-left: 2%;
+    border: 1px solid var(--border);
+}
+
+.button_server:active {
+    background: var(--surface-2);
+    color: var(--text);
+}
+
+/* Highlight key actions */
+#save_sip_server,
+#upload_plan{
+    background: var(--green);
+    color: var(--green-contrast);
+    border-color: rgba(22,163,74,0.35);
+}

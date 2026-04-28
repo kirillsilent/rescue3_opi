@@ -1,0 +1,72 @@
+@import "/utils/css/theme.css";
+@import "from_top.css";
+@import "from_right.css";
+@import "fade_in.css";
+
+body{
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    background: var(--bg);
+}
+
+button{
+    outline: none;
+}
+
+#text_welcome{
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    color: var(--text);
+    font-size: 200%;
+    top: 34%;
+    animation: anim_index_text_top 3s;
+    padding: 0 24px;
+    letter-spacing: 0.2px;
+}
+
+#text_next{
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    color: var(--muted);
+    font-size: 150%;
+    bottom:15%;
+    animation: anim_text_right 3s;
+    padding: 0 24px;
+}
+
+
+
+#next{
+    display: inline-block;
+    width: 180px;
+    height: 80px;
+    border-radius: 16px;
+    background-color: var(--accent);
+    color: var(--accent-contrast);
+    border: 0;
+    font-size: 18px;
+    font-weight: 650;
+    text-align: center;
+    line-height: 80px;
+    animation: fade_in 3s;
+    box-shadow: var(--shadow);
+}
+#next_container{
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    top: 55%;
+}
+#next:active {
+    opacity: 0.5;
+    background: var(--accent);
+}
+
+#logo{
+    width: 100%;
+    height: 164px;
+    background: url("../images/logo_idc_software.png") no-repeat;
+}

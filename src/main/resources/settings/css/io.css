@@ -1,0 +1,102 @@
+#text_functional_header_volume{
+    margin-top: 1%;
+    margin-bottom: 0.3%;
+    text-align: center;
+    color: var(--text);
+    font-size: 140%;
+}
+
+#text_functional_footer{
+    margin-top: 2%;
+    margin-bottom: 0.3%;
+    text-align: center;
+    color: var(--text);
+    font-size: 140%;
+}
+.sound_cont{
+    float: left;
+    width: 100%;
+}
+.sound{
+    display: flex;
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    margin-left: 1%;
+    background-color: rgba(255,255,255,0.85);
+    box-shadow: var(--shadow-sm);
+}
+
+.sound.in {
+    margin-top: 2%;
+    background: url(../images/ic_microphone.png) var(--accent) no-repeat center;
+    float: left;
+}
+
+.sound.out{
+    margin-top: 2%;
+    background:url(../images/ic_bullhorn.png) var(--accent) no-repeat center;
+    float: left;
+}
+
+.sound_slider {
+    cursor: none;
+    -webkit-appearance: none;
+    border: 1px solid rgba(16, 24, 40, 0.14);
+    width: 89%;
+    height: 5px;
+    border-radius: 5px;
+    outline: 0;
+    margin-left: 3%;
+    margin-top: 3.1%;
+    background:transparent;
+}
+
+.sound_slider:hover {
+  background-color: rgba(215, 45, 46, 0.10);
+}
+
+.val{
+    display: inline;
+    width: 30px;
+    height: 20px;
+    color: var(--text);
+    font-size: 150%;
+}
+
+.err_io{
+    display: none;
+    color: var(--danger);
+    text-align: center;
+    font-size: 1em;
+    margin-top: 2.3%;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background-color: var(--accent);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.95);
+    cursor: none;
+    transition: .3s ease-in-out;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+    background-color: var(--accent);
+}
+
+input[type="range"]::-webkit-slider-thumb:active {
+    transform: scale(1.6);
+}
+.button_func{
+    height: 70px;
+    border-radius: var(--radius);
+    color: var(--accent-contrast);
+    font-size: 150%;
+    text-align: center;
+    line-height: 70px;
+    margin-top: 2%;
+}

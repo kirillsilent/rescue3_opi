@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/settings/css/settings.css}"/>
+    <script type="module" src="/settings/js/settings.js?v=20260303-1"></script>
+    <title>Настройки</title>
+</head>
+<body>
+<div class="tab_container">
+    <div class="tab tab_bottom_bar tab_background tab_padding" id="tab_network">Сеть</div>
+    <div class="tab tab_bottom_bar tab_background tab_padding" id="tab_api_settings">Сервер</div>
+    <div class="tab tab_bottom_bar tab_background tab_padding" id="tab_io">Устройства</div>
+    <div class="tab tab_bottom_bar tab_background tab_padding" id="tab_plan">План</div>
+    <div class="tab tab_bottom_bar tab_background tab_padding" id="tab_coords">Координаты</div>
+
+</div>
+<div id="root_container">
+    <div class="container select_network" id="select_network">
+        <div class="half">
+            <div class="text_network">Выбрать LAN</div>
+            <button class="button_network lan" id="select_lan">Выбрать</button>
+        </div>
+        <div class="half">
+            <div class="text_network">Выбрать Wi-Fi</div>
+            <button class="button_network wifi" id="select_wifi">Выбрать</button>
+        </div>
+    </div>
+    <div class="container interfaces" id="net_interfaces_list">
+        <div class="list">
+            <div class="text err_list" id="err_net_interfaces">Устройство отсутствует или не активно</div>
+            <ul class="interfaces" id="interfaces"></ul>
+        </div>
+        <button class="button_network update" id="update_list_interfaces">Обновить</button>
+    </div>
+    <div class="container interfaces" id="wifi_list">
+        <div class="list">
+            <div class="text err_list" id="err_dev">Устройство отсутствует или не активно</div>
+            <ul class="interfaces" id="wifi_ap"></ul>
+        </div>
+        <button class="button_network update" id="update_list_ap">Обновить</button>
+    </div>
+    <div class="container network" id="network">
+        <div class="row">
+            <div class="half">
+                <div class="text net_type">Тип сети</div>
+            </div>
+            <div class="half">
+                <div class="button_network change" id="net_change">LAN</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="half">
+                <div class="text interface">Сетевой интерфейс</div>
+            </div>
+            <div class="half">
+                <div class="button_network change_interface" id="interface_change"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="half">
+                <div class="text ssid">Точка Wi-Fi</div>
+            </div>
+            <div class="half">
+                <div class="button_network change_wifi" id="wifi_change"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="half">
+                <div class="text">Работать через сеть VPN</div>
+            </div>
+            <div class="half">
+                <div class="checkbox vpn">
+                    <input type="checkbox" value="1" id="vpn_is_enabled" name=""/>
+                    <label for="vpn_is_enabled"></label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="half">
+                <div class="text">Статус сети</div>
+            </div>
+            <div class="half">
+                <div class="text_status err" id="net_status">Не подключено</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="half">
+                <div class="text">DHCP/Статический IP</div>
+            </div>
+            <div class="half">
+                <div class="checkbox ip">
+                    <input type="checkbox" value="1" id="network_type" name=""/>
+                    <label for="network_type"></label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="half">
+                <div class="text">VPN IP-адрес</div>
+            </div>
+            <div class="half">
+                <div class="text_status err" id="vpn_status">Не подключено</div>
+                <div class="address" id="sub_vpn_ip">
+                    <input type="text" class="input_settings net" maxlength="3" id="inp1_vpn_ip"/>
+                    <input type="text" class="input_settings net" maxlength="3" id="inp2_vpn_ip"/>
+                    <input type="text" class="input_settings net" maxlength="3" id="inp3_vpn_ip"/>
+                    <input type="text" class="input_settings net" maxlength="3" id="inp4_vpn_ip"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="half">
+                <div class="text">IP-адрес</div>
+            </div>
+            <div class="half">
+                <div class="address" id="sub_ip">
+                    <input type="text" class="input_settings net" maxlength="3" id="inp1_ip"/>
+                    <input type="text" class="input_settings net" maxlength="3" id="inp2_ip"/>
+                    <input type="text" class="input_settings net" maxlength="3" id="inp3_ip"/>
+                    <input type="text" class="input_settings net" maxlength="3" id="inp4_ip"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="half">
+                <div class="text">Маска</div>
+            </div>
+            <div class="half">
+                <div class="address" id="sub_netmask">
+                    <input type="text" class="input_settings net" maxlength="3" id="inp1_netmask"/>
+                    <input type="text" class="input_settings net" maxlength="3" id="inp2_netmask"/>
+                    <input type="text" class="input_settings net" maxlength="3" id="inp3_netmask"/>
+                    <input type="text" class="input_settings net" maxlength="3" id="inp4_netmask"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="half">
+                <div class="text">Шлюз</div>
+            </div>
+            <div class="half">
+                <div class="address" id="sub_gateway">
+                    <input type="text" class="input_settings net" maxlength="3" id="inp1_gateway"/>
+                    <input type="text" class="input_settings net" maxlength="3" id="inp2_gateway"/>
+                    <input type="text" class="input_settings net" maxlength="3" id="inp3_gateway"/>
+                    <input type="text" class="input_settings net" maxlength="3" id="inp4_gateway"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="half">
+                <div class="text">DNS1</div>
+            </div>
+            <div class="half">
+                <div class="address" id="sub_dns1">
+                    <input type="text" class="input_settings net" maxlength="3" id="inp1_dns1"/>
+                    <input type="text" class="input_settings net" maxlength="3" id="inp2_dns1"/>
+                    <input type="text" class="input_settings net" maxlength="3" id="inp3_dns1"/>
+                    <input type="text" class="input_settings net" maxlength="3" id="inp4_dns1"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="half">
+                <div class="text">DNS2</div>
+            </div>
+            <div class="half">
+                <div class="address" id="sub_dns2">
+                    <input type="text" class="input_settings net" maxlength="3" id="inp1_dns2"/>
+                    <input type="text" class="input_settings net" maxlength="3" id="inp2_dns2"/>
+                    <input type="text" class="input_settings net" maxlength="3" id="inp3_dns2"/>
+                    <input type="text" class="input_settings net" maxlength="3" id="inp4_dns2"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container api" id="api_settings">
+        <div class="header odd">
+            <div class="text header">Настройки Web-cервера</div>
+        </div>
+        <div class="row">
+            <div class="half">
+                <div class="text">Web-cервер</div>
+            </div>
+            <div class="half">
+                <input type="text" class="input_settings api" id="web_host"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="half">
+                <div class="text">Порт web-сервера</div>
+            </div>
+            <div class="half">
+                <input type="text" class="input_settings protocol_port" maxlength="5" id="web_port"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="half">
+                <div class="text">Идентификатор кнопки</div>
+            </div>
+            <div class="half">
+                <div>
+                    <input type="text" class="input_settings id" id="button"/>
+                    <div class="button_server" id="id">Получить ID</div>
+                </div>
+            </div>
+        </div>
+        <div class="header even">
+            <div class="text header">Настройки Sip-аккаунта</div>
+        </div>
+        <div class="row">
+            <div class="half">
+                <div class="text">Сервер SIP-аккаунтов</div>
+            </div>
+            <div class="half">
+                <input type="text" class="input_settings api" id="sip_account_host"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="half">
+                <div class="text">Порт сервера sip-аккаунтов</div>
+            </div>
+            <div class="half">
+                <input type="text" class="input_settings protocol_port" maxlength="5" id="sip_account_port"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="half">
+                <div class="text">Номер девайса</div>
+            </div>
+            <div class="half">
+                <div>
+                    <input type="text" class="input_settings id" id="sip_account"/>
+                    <div class="button_server" id="sip_id">Получить Sip ID</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="half">
+                <div class="text">Пароль</div>
+            </div>
+            <div class="half">
+                <div>
+                    <input type="text" class="input_settings password" id="sip_password"/>
+                </div>
+            </div>
+        </div>
+        <div class="header odd">
+            <div class="text header">Настройки Sip-cервера</div>
+        </div>
+        <div class="row">
+            <div class="half">
+                <div class="text">SIP-сервер</div>
+            </div>
+            <div class="half">
+                <input type="text" class="input_settings api" id="sip_host"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="half">
+                <div class="text">Порт sip-сервера</div>
+            </div>
+            <div class="half">
+                <input type="text" class="input_settings sip_port" maxlength="5" id="sip_port"/>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="half">
+                <div class="text">Номер оператора</div>
+            </div>
+            <div class="half">
+                <input type="text" class="input_settings operator" maxlength="5" id="sip_operator"/>
+                <div class="button_server" id="save_sip_server">Сохранить</div>
+            </div>
+        </div>
+    </div>
+    <div class="container io" id="io">
+        <div class="header even">
+            <div class="text header">Устройства аудио-видео</div>
+        </div>
+        <div class="row">
+            <div class="half">
+                <div class="text device">Камера</div>
+            </div>
+            <div class="half">
+                <div class="drop down" id="camera">
+                    <div class="header drop"></div>
+                    <div class="cont drop"></div>
+                </div>
+                <div class="err_io" id="err_camera"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="half">
+                <div class="text device">Запись</div>
+            </div>
+            <div class="half">
+                <div class="drop down" id="input_audio_cards">
+                    <div class="header drop"></div>
+                    <div class="cont drop"></div>
+                </div>
+                <div class="err_io" id="err_in"></div>
+            </div>
+            <div class="sound_cont" id="volume_input">
+                <img class="sound in"></img>
+                <input type="range" class="sound_slider" min="0" max="100" value="90" step="1">
+                <div class="val">90</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="half">
+                <div class="text device">Звук</div>
+            </div>
+            <div class="half">
+                <div class="drop down" id="output_audio_cards">
+                    <div class="header drop"></div>
+                    <div class="cont drop"></div>
+                </div>
+                <div class="err_io" id="err_out"></div>
+            </div>
+            <div class="sound_cont" id="volume_output">
+                <div class="sound out"></div>
+                <input type="range" class="sound_slider" min="0" max="100" value="90" step="1">
+                <div class="val">90</div>
+            </div>
+        </div>
+    </div>
+    <div class="container plan" id="plan_settings">
+        <div class="header odd">
+            <div class="text header">Изображение плана</div>
+        </div>
+
+        <!-- Current plan preview (image or video), centered -->
+        <div class="plan_preview_wrap">
+            <div class="plan_preview_frame">
+                <div class="plan_preview_placeholder" id="plan_preview_placeholder">План не загружен</div>
+                <img id="plan_preview_img" class="plan_preview_media" alt="План" style="display:none">
+                <video id="plan_preview_video"
+                       class="plan_preview_media"
+                       style="display:none"
+                       controls
+                       muted
+                       loop
+                       playsinline
+                       preload="metadata"></video>
+            </div>
+            <div class="err_io" id="err_plan_preview"></div>
+        </div>
+        <div class="row">
+            <div class="half">
+                <div class="text">Загрузить новое</div>
+            </div>
+            <div class="half">
+                <div class="plan_upload_controls">
+                    <input type="file" id="plan_file"
+                           class="input_settings api"
+                           accept="image/png,image/jpeg,image/webp,image/svg+xml,video/mp4,video/webm,video/ogg">
+                    <div class="button_server" id="upload_plan">Загрузить</div>
+                </div>
+                <div class="err_io" id="err_plan_upload"></div>
+            </div>
+        </div>
+    </div>
+    <div class="container api" id="coords_settings">
+        <div class="header odd">
+            <div class="text header">Координаты / карточка события</div>
+        </div>
+
+        <div class="row">
+            <div class="half">
+                <div class="text">Адрес сервера событий</div>
+            </div>
+            <div class="half">
+                <input type="text" class="input_settings api" id="event_server_url_coords"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="half">
+                <div class="text">SN устройства</div>
+            </div>
+            <div class="half">
+                <input type="text" class="input_settings api" id="device_sn_coords"/>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="half">
+                <div class="text">date_time</div>
+            </div>
+            <div class="half">
+                <input type="text" class="input_settings api" id="incident_date_time" readonly/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="half">
+                <div class="text">gts_phone</div>
+            </div>
+            <div class="half">
+                <input type="text" class="input_settings api" id="incident_gts_phone"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="half">
+                <div class="text">gts_fio</div>
+            </div>
+            <div class="half">
+                <input type="text" class="input_settings api" id="incident_gts_fio"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="half">
+                <div class="text">Gts_street</div>
+            </div>
+            <div class="half">
+                <input type="text" class="input_settings api" id="incident_gts_street"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="half">
+                <div class="text">gts_block</div>
+            </div>
+            <div class="half">
+                <input type="text" class="input_settings api" id="incident_gts_block"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="half">
+                <div class="text">gts_home</div>
+            </div>
+            <div class="half">
+                <input type="text" class="input_settings api" id="incident_gts_home"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="half">
+                <div class="text">gts_flat</div>
+            </div>
+            <div class="half">
+                <input type="text" class="input_settings api" id="incident_gts_flat"/>
+            </div>
+        </div>
+
+        <div class="header even">
+            <div class="text header">Описание</div>
+        </div>
+        <div class="row">
+            <div class="half">
+                <div class="text">descr_event</div>
+            </div>
+            <div class="half">
+                <input type="text" class="input_settings api" id="incident_descr_event"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="half">
+                <div class="text">street</div>
+            </div>
+            <div class="half">
+                <input type="text" class="input_settings api" id="incident_street"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="half">
+                <div class="text">cross_street</div>
+            </div>
+            <div class="half">
+                <input type="text" class="input_settings api" id="incident_cross_street"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="half">
+                <div class="text">numeric_home</div>
+            </div>
+            <div class="half">
+                <input type="text" class="input_settings api" id="incident_numeric_home"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="half">
+                <div class="text">block</div>
+            </div>
+            <div class="half">
+                <input type="text" class="input_settings api" id="incident_block"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="half">
+                <div class="text">numeric_flat</div>
+            </div>
+            <div class="half">
+                <input type="text" class="input_settings api" id="incident_numeric_flat"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="half">
+                <div class="text">descr_place</div>
+            </div>
+            <div class="half">
+                <input type="text" class="input_settings api" id="incident_descr_place"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="half">
+                <div class="text">status_card</div>
+            </div>
+            <div class="half">
+                <input type="number" class="input_settings protocol_port" id="incident_status_card"/>
+            </div>
+        </div>
+
+        <div class="header odd">
+            <div class="text header">Координаты</div>
+        </div>
+        <div class="row">
+            <div class="half">
+                <div class="text">xcoord</div>
+            </div>
+            <div class="half">
+                <input type="number" step="0.0000001" class="input_settings api" id="incident_xcoord"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="half">
+                <div class="text">ycoord</div>
+            </div>
+            <div class="half">
+                <input type="number" step="0.0000001" class="input_settings api" id="incident_ycoord"/>
+            </div>
+        </div>
+
+        <div class="header even">
+            <div class="text header">Служебные поля</div>
+        </div>
+        <div class="row">
+            <div class="half">
+                <div class="text">user_id</div>
+            </div>
+            <div class="half">
+                <input type="text" class="input_settings api" id="incident_user_id"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="half">
+                <div class="text">category_code</div>
+            </div>
+            <div class="half">
+                <input type="number" class="input_settings protocol_port" id="incident_category_code"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="half">
+                <div class="text">region_id</div>
+            </div>
+            <div class="half">
+                <input type="number" class="input_settings protocol_port" id="incident_region_id"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="half">
+                <div class="text">Sid</div>
+            </div>
+            <div class="half">
+                <input type="number" class="input_settings protocol_port" id="incident_sid"/>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="operation_container">
+    <button class="button_operation back" id="back">Назад</button>
+    <button class="button_operation save" id="save">Сохранить</button>
+</div>
+<div id="dialog" class="dialog">
+    <div class="dialog_content">
+        <div class="dialog_text text_default" id="dialog_text"></div>
+        <div class="dialog_operation">
+            <button class="dialog_button cancel" id="cancel">Отмена</button>
+            <button class="dialog_button ok" id="ok">Ок</button>
+        </div>
+    </div>
+</div>
+<div id="dialog_default" class="dialog">
+    <div class="dialog_content list">
+        <div id="default_content"></div>
+        <div class="dialog_operation">
+            <button class="dialog_button default_cancel" id="default_cancel">Отмена</button>
+        </div>
+    </div>
+</div>
+<div id="dialog_wifi_psk" class="dialog wifi_psk">
+    <div class="dialog_content">
+        <div class="dialog_text">Введите пароль для Wi-Fi</div>
+        <div class="dialog_text err" id="wifi_err">Подключение не удалось неверен пароль или слабый сигнал</div>
+        <input type="text" class="input_settings psk" id="psk"/>
+        <div class="dialog_operation">
+            <button class="dialog_button cancel" id="cancel_wifi">Отмена</button>
+            <button class="dialog_button ok" id="save_wifi">Ок</button>
+        </div>
+    </div>
+</div>
+<div id="dialog_waiting" class="dialog">
+    <div class="dialog_content waiting">
+        <div class="sk-folding-cube">
+            <div class="sk-cube1 sk-cube"></div>
+            <div class="sk-cube2 sk-cube"></div>
+            <div class="sk-cube4 sk-cube"></div>
+            <div class="sk-cube3 sk-cube"></div>
+        </div>
+        <div class="dialog_text text_waiting" id="waiting">Подождите...</div>
+    </div>
+</div>
+<div id="dialog_notification" class="dialog">
+    <div class="dialog_content">
+        <div class="dialog_text text_default" id="dialog_text_notification"></div>
+        <div class="dialog_operation">
+            <div id="close" class="button_notification">Закрыть</div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

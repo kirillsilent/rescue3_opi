@@ -1,0 +1,66 @@
+.address{
+    display: inline-block;
+}
+
+.text_network{
+    width: 93%;
+    text-align: center;
+    color: var(--text);
+    font-size: 140%;
+    margin-top: 24%;
+    height: 50px;
+}
+.button_network{
+    width: 60%;
+    height: 78px;
+    border-radius: var(--radius);
+    color: var(--text);
+    font-size: 120%;
+    text-align: center;
+    line-height: 78px;
+    margin-left: 17%;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,0.92);
+}
+
+.button_network.lan{
+    margin-top: 5%;
+    background-color: var(--green);
+    border-color: rgba(22,163,74,0.35);
+    color: var(--green-contrast);
+}
+
+.button_network.wifi{
+    margin-top: 5%;
+    background-color: var(--blue);
+    border-color: rgba(37,99,235,0.35);
+    color: var(--blue-contrast);
+}
+
+.button_network.update{
+    width: 34%;
+    margin-left: 33%;
+    background: var(--surface-2);
+}
+
+.button_network.change{
+    background: url(../images/ic_settings_small.png) var(--surface-2) no-repeat 4%;
+    margin-left: 33%;
+}
+
+.button_network.change_interface{
+    background: url(../images/ic_settings_small.png) var(--surface-2)  no-repeat 4%;
+    color: var(--text);
+    margin-left: 33%;
+    border: 1px solid var(--border);
+}
+
+.button_network.change_wifi{
+    background: url(../images/ic_settings_small.png) var(--blue-soft) no-repeat 4%;
+    margin-left: 33%;
+    display: none;
+}
+
+.button_network:active {
+    opacity: 0.5;
+}

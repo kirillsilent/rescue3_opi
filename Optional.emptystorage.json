@@ -1,0 +1,1 @@
+{"rescueDTO":null,"marqueeDTO":{"marquee":null,"marqueeOn":true},"webServer":{"hostname":"http://10.18.0.46","port":80},"sipConfigDTO":{"hostname":"10.18.0.61","port":5060,"operator":"2000","account":null,"password":"5229eabfc","inboundEnabled":true},"ioDevices":[{"type":"audio","device":null},{"type":"video","device":null},{"type":"network","device":null}]}

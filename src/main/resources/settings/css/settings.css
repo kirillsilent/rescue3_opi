@@ -1,0 +1,458 @@
+@import "/utils/css/theme.css";
+@import "cube.css";
+@import "network.css";
+@import "server.css";
+@import "../../drop.down/css/drop.down.css";
+@import "../../dialogs/css/dialog.css";
+@import "../../dialogs/css/dialog.default.css";
+@import "io.css";
+@import "net_interfaces.css";
+
+
+body{
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    background: var(--bg);
+}
+
+.tab_container{
+    width: 100%;
+    margin-top: 2%;
+    display: flex;
+    gap: 8px;
+    padding: 0 2%;
+    box-sizing: border-box;
+}
+.tab_padding{padding:8px 16px !important}
+
+.tab{
+    display: inline-block;
+    flex: 1 1 0;
+    width: auto;
+    text-align: center;
+    font-size: 200%;
+    color: var(--text);
+    user-select: none;
+}
+
+.tab_bottom_bar{border-bottom:6px solid var(--border)}
+
+.tab_bottom_bar:active{border-bottom:6px solid var(--accent)}
+
+.tab_bottom_bar_selected{border-bottom:6px solid var(--accent)}
+
+.tab_background{
+    border: 1px solid var(--border);
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+    background-color: rgba(255,255,255,0.65);
+    backdrop-filter: blur(8px);
+}
+.tab_background:active{
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+    background-color: var(--surface);
+    color: var(--text);
+}
+.tab_background_selected{
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+    background-color: var(--accent);
+    color: var(--accent-contrast);
+    border-color: rgba(215, 45, 46, 0.35);
+}
+
+.container{
+    margin-left: 2%;
+    margin-right: 2%;
+    height: 78vh;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    box-shadow: var(--shadow);
+    animation: anim_container_from_right 2s;
+    overflow-y: hidden;
+}
+
+#root_container{
+    position: absolute;
+    width: 100%;
+    height: 88%;
+    padding-bottom: 110px; /* keep content visible above bottom buttons */
+}
+
+button{
+    outline: none;
+}
+
+.container.select_network{
+    display: none;
+}
+
+.container.network{
+    display: none;
+    overflow-y: scroll;
+}
+
+.container.api{
+    display: none;
+    overflow-y: scroll;
+}
+
+.container.io{
+    display: none;
+}
+
+.container.interfaces{
+    display: none;
+}
+
+.text{
+    color: var(--text);
+    font-size: 170%;
+    line-height: 170%;
+}
+
+
+.text.sip{
+    display: inline;
+}
+.text.net_type{
+    margin-top: 3%;
+}
+
+.text.interface{
+    margin-top: 3.5%;
+}
+
+.text.device{
+    float: left;
+}
+
+.text.ssid{
+    margin-top: 3%;
+    display: none;
+}
+
+.text.err_list{
+    display: none;
+    text-align: center;
+}
+
+.text_status{
+    margin-left: 2%;
+    font-size: 170%;
+    line-height: 170%;
+    text-align: center;
+    color: var(--text);
+}
+
+.text_status.vpn{
+    margin-top: 5.8%;
+}
+
+.text_status.success{
+    color: var(--success);
+}
+
+.text_status.ssid{
+    margin-top: 4.8%;
+    color: var(--accent);
+    display: none;
+}
+
+.text_status.err{
+    color: var(--danger);
+}
+
+input[type=checkbox] {
+	visibility: hidden;
+}
+.checkbox {
+    position: relative;
+    width: 80px;
+    height: 30px;
+    background: #d0d5dd;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+}
+
+.checkbox.vpn{
+    margin-top: 2%;
+    margin-left: 57%;
+}
+
+.checkbox.ip{
+    margin-top: 2%;
+    margin-left: 57%;
+}
+
+.checkbox.type{
+    margin-top: 5%;
+}
+
+.checkbox label {
+	display: block;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	transition: all .5s ease;
+	cursor: none;
+	position: absolute;
+	top: -7px;
+	left: -7px;
+	background: var(--surface);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid rgba(16, 24, 40, 0.10);
+}
+
+.checkbox input[type=checkbox]:checked + label {
+	left: 47px;
+    background: var(--accent);
+}
+.operation_container{
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 16px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    padding: 0 16px;
+    z-index: 3000;
+}
+
+.button_operation{
+    display: inline-block;
+    width: min(320px, 44vw);
+    height: 70px;
+    border-radius: var(--radius);
+    background-color: rgba(255,255,255,0.92);
+    color: var(--text);
+    border: 1px solid var(--border);
+    font-size: 150%;
+    text-align: center;
+    line-height: 70px;
+}
+
+.button_operation.save{
+    background: var(--green);
+    color: var(--green-contrast);
+    border-color: rgba(22,163,74,0.35);
+}
+
+.button_operation.back{
+    background: var(--surface-2);
+}
+
+.button_operation.cancel{
+    background: var(--accent);
+    color: var(--accent-contrast);
+    border-color: rgba(215, 45, 46, 0.35);
+}
+
+.button_operation:active {
+    opacity: 0.5;
+}
+
+.button_operation.back{
+    margin-left: 0;
+}
+
+.button_operation.save{
+    margin-left: 0;
+}
+
+.button_operation.cancel{
+    width: min(680px, 92vw);
+}
+
+.input_settings{
+    padding: 7px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    text-align: center;
+    font-size: 150%;
+    background-color: rgba(255,255,255,0.9);
+    color: var(--text);
+    cursor: none;
+}
+.input_settings:focus{
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px var(--accent-ring);
+}
+
+.input_settings.net{
+    display: inline-block;
+    width: 19%
+}
+
+.input_settings.api{
+    width: 80%;
+}
+
+.input_settings.protocol_port{
+    width: 30%;
+}
+
+.input_settings.sip_port{
+    width: 30%;
+}
+
+.input_settings.id{
+    width: 30%;
+}
+
+.input_settings.password{
+    width: 55%;
+}
+
+.input_settings.operator{
+    width: 30%;
+}
+
+.input_settings.psk{
+    width: 80%;
+    margin-top: 5%;
+    margin-left: 8.5%;
+}
+
+.input_settings.net.exception{
+    background-color: rgba(215, 45, 46, 0.18);
+    border-color: rgba(215, 45, 46, 0.55);
+}
+
+.text_header{
+    margin-top: 1%;
+    margin-bottom: 0.3%;
+    text-align: center;
+    color: var(--text);
+    font-size: 170%;
+}
+
+.half{
+    float:left;
+    width: 50%;
+}
+
+#pin_container{
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    top: 2%;
+}
+
+#keyboard_container {
+    width: 100%;
+    text-align: center;
+}
+
+.list{
+    height: 75%;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    width: 98%;
+    margin: 1%;
+    overflow: auto;
+    background: rgba(255,255,255,0.65);
+}
+
+.row{
+    width: 98%;
+    margin: 1%;
+    display:inline-block;
+}
+
+.header{
+    width: 100%;
+}
+
+.header.odd{
+    background: var(--accent);
+}
+
+.header.even{
+    background: var(--surface-2);
+}
+
+.text.header{
+    color: var(--accent-contrast);
+    text-align: center;
+}
+
+.header.even .text.header{
+    color: var(--text);
+}
+
+/* ===== План: выбор файла + загрузка в одну строку ===== */
+#plan_settings .plan_upload_controls{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+#plan_settings #plan_file{
+    flex: 1 1 360px;
+    width: auto; /* override .input_settings.api width */
+    min-height: 54px;
+    padding: 10px 12px;
+}
+
+#plan_settings #upload_plan{
+    flex: 0 0 auto;
+    min-width: 150px;
+    height: 54px;
+    line-height: 54px;
+    margin-left: 0; /* avoid inheriting offsets in other contexts */
+}
+
+#plan_settings{
+    overflow-y: auto;
+}
+
+#plan_settings .plan_preview_wrap{
+    width: 100%;
+    padding: 18px 16px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#plan_settings .plan_preview_frame{
+    width: min(980px, 92%);
+    background: rgba(255,255,255,0.70);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    padding: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#plan_settings .plan_preview_media{
+    width: 100%;
+    max-height: 48vh;
+    height: auto;
+    display: block;
+    object-fit: contain;
+}
+
+#plan_settings #plan_preview_video{
+    background: #000;
+    border-radius: 12px;
+}
+
+#plan_settings .plan_preview_placeholder{
+    width: 100%;
+    padding: 22px 14px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 120%;
+}
